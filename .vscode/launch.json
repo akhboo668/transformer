@@ -1,0 +1,62 @@
+{
+  // Single-pass debug configuration for the Transformer training pipeline.
+  //
+  // What this runs:
+  //   train_sort.py with --steps 1 --batch-size 4 --no-evaluate
+  //   => exactly ONE forward pass + ONE label-smoothed CE loss
+  //      + ONE backward pass + ONE Adam step, on a 4-example batch.
+  //
+  // Why batch_size = 4:
+  //   Tensors are small enough to inspect by eye in the debugger.
+  //   The default of 32 makes (B, n, d_model) arrays a wall of numbers.
+  //
+  // Suggested breakpoints (set in the gutter before pressing F5):
+  //
+  //   nn/numpy-transformer/src/numpy_transformer/training.py
+  //     - inside train() at:
+  //         loss, grad_logits = cross_entropy_with_label_smoothing(...)
+  //         => loss should be ~2.56 (= log(13)) on step 1
+  //     - inside train() at:
+  //         transformer.backward(grad_logits)
+  //         => step into to walk the chain rule through every layer
+  //     - inside Adam.step():
+  //         => watch m, v, and the bias-corrected update for each param
+  //
+  //   nn/numpy-transformer/src/numpy_transformer/layers.py
+  //     - Transformer.forward / Encoder.forward / Decoder.forward
+  //     - MultiHeadAttention.forward (after softmax) -- attn weights
+  //       sum to 1 across the last axis
+  //
+  // Controls (inside the debug session):
+  //   F5         continue   F10  step over
+  //   F11        step into  Shift+F11  step out
+  //   Cmd+K Cmd+I (mac)     hover-equivalent: show variable in Watch panel
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Train sort: 1 full pass (forward + backward + Adam)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/nn/numpy-transformer/scripts/train_sort.py",
+      "args": [
+        "--steps", "1",
+        "--batch-size", "4",
+        "--log-every", "1",
+        "--no-evaluate"
+      ],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}/nn",
+      "python": "${workspaceFolder}/nn/.venv/Scripts/python.exe",
+      "windows": {
+        "python": "${workspaceFolder}/nn/.venv/Scripts/python.exe"
+      },
+      "osx": {
+        "python": "${workspaceFolder}/nn/.venv/bin/python"
+      },
+      "linux": {
+        "python": "${workspaceFolder}/nn/.venv/bin/python"
+      },
+      "justMyCode": true
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/nn/.venv/bin/python",
+  "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestArgs": [
+    "tests"
+  ],
+  "python.testing.cwd": "${workspaceFolder}/nn/numpy-transformer",
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}/nn/numpy-transformer/src"
+  ]
+}

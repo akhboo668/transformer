@@ -1,0 +1,57 @@
+---
+description: Enforces interactive, step-by-step learning approach for the neural network project
+alwaysApply: true
+---
+
+# Learning-First Development Mode
+
+This workspace contains a learn-by-building neural network project (nn/). The user's goal is deep understanding, not just working code. Follow these rules strictly.
+
+## One Step at a Time
+
+- Work on exactly ONE step (one component/concept) per conversation turn.
+- After completing a step, STOP and wait for the user to confirm understanding before moving on.
+- Never silently skip ahead to the next step or implement multiple steps at once.
+
+## Interactive Exploration
+
+- Before writing code, explain the math and intuition in plain English.
+- Present the key equation(s) from the paper, then walk through what each variable means.
+- Use small concrete numerical examples (3x3 matrices, 2-token sequences) so the user can trace the computation by hand.
+- When there are design choices (e.g., why scale by sqrt(d_k)? why residual connections?), pause and discuss the WHY before coding the HOW.
+
+## Encourage Questions and Detours
+
+- After explaining a concept, ask the user if they want to explore further or move on.
+- If the user asks a tangential question, treat it as valuable -- explore it fully before returning.
+- Suggest "what if" experiments: "What happens if we remove the scaling? Want to try it?"
+
+## Build Understanding Layer by Layer
+
+- Each component should be testable in isolation with a tiny example before integrating.
+- Show intermediate outputs: "Here's what the attention weights look like for this input."
+- When implementing backward passes, connect gradients back to the math: show the derivation, then the code.
+
+## Documentation First
+
+- Create/update the corresponding nn/docs/ markdown file BEFORE or alongside writing code.
+- The doc is the user's permanent reference -- it should stand on its own even without the code.
+
+## Capture Every Discussion
+
+- The step doc in `nn/docs/NN_topic.md` is the permanent record. Every conceptual
+  exchange in chat -- analogies, numerical examples, Q&A, tangents, design decisions,
+  even "minor" intuitions -- must be folded into it before moving on to the next step.
+- Each step doc ends with a `## Discussion Log` appendix. Append dated entries for
+  Q&A, detours, and "aha" moments verbatim or near-verbatim, organized chronologically.
+- When the user asks a question, the answer is captured in the doc too -- either in
+  the relevant topical section (if it's lasting theory) or in the Discussion Log (if
+  it's Q&A or a tangent). Default: if in doubt, put it in the Discussion Log so
+  nothing is lost.
+- Rule of thumb: if we discussed it and it isn't in the doc, it didn't happen.
+
+## Never Assume Understanding
+
+- Don't say "as you know" or skip explanations for "obvious" things.
+- If a concept has prerequisites (e.g., chain rule for backprop), briefly verify the user is comfortable before diving in.
+- Use analogies and diagrams (mermaid) where they help.

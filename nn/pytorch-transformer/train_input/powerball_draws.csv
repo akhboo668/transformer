@@ -1,0 +1,24 @@
+date,w1,w2,w3,w4,w5,pb
+# Replace this file with real Powerball data.
+# Each row is one draw:
+#   date  : YYYY-MM-DD  (any date format accepted by pandas; informational only)
+#   w1-w5 : white balls 1-69, sorted ascending
+#   pb    : Powerball   1-26
+#
+# Where to download real data
+# ---------------------------
+# Texas Lottery (CSV export):
+#   https://www.texaslottery.com/export/sites/lottery/Games/Powerball/Winning_Numbers/
+#
+# Kentucky Lottery (direct CSV):
+#   https://www.kylottery.com/apps/draw_games/powerball_winning_numbers.csv
+#
+# Or search: "powerball winning numbers csv download"
+#
+# Minimum rows needed: context + 1  (default context=10, so at least 11 rows).
+# For meaningful experiments: 500+ rows recommended (data goes back to 1992).
+#
+# Example rows (synthetic — replace with real data):
+2024-01-06,5,12,25,33,48,15
+2024-01-08,3,18,22,41,56,8
+2024-01-10,7,11,30,38,62,21
